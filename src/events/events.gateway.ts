@@ -1,3 +1,4 @@
+import { Logger } from "@nestjs/common";
 import {
   SubscribeMessage,
   WebSocketGateway,
@@ -18,5 +19,10 @@ export class EventsGateway {
     return from([1, 2, 3, 4, 5]).pipe(
       map((item) => ({ event: "events", data: item }))
     );
+  }
+
+  @SubscribeMessage("echo")
+  onEchoEvent(client: any, data: any): WsResponse<string> {
+    return { event: "echo", data: data };
   }
 }
